@@ -66,6 +66,7 @@ class SmoothedValue(object):
 
     @property
     def global_avg(self):
+        print(self.count)
         return self.total / self.count
 
     #@property
