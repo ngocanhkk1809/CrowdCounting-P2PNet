@@ -22,6 +22,10 @@ from torch.autograd import Variable
 
 # needed due to empty tensor bug in pytorch and torchvision 0.5
 import torchvision
+# if float(torchvision.__version__[:3]) < 0.7:
+#     from torchvision.ops import _new_empty_tensor
+#     from torchvision.ops.misc import _output_size
+
 
 class SmoothedValue(object):
     """Track a series of values and provide access to smoothed values over a
@@ -66,15 +70,8 @@ class SmoothedValue(object):
 
     @property
     def global_avg(self):
-        print(self.count)
         return self.total / self.count
 
-    #@property
-    #def global_avg(self):
-    #    if self.count == 0:
-    #        return 0.0  # Hoặc giá trị mặc định phù hợp
-    #    return self.total / self.count
-    
     @property
     def max(self):
         return max(self.deque)
@@ -450,7 +447,17 @@ def interpolate(input, size=None, scale_factor=None, mode="nearest", align_corne
     This will eventually be supported natively by PyTorch, and this
     class can go away.
     """
-    return torchvision.ops.misc.interpolate(input, size, scale_factor, mode, align_corners)
+    if float(torchvision.__version__[:3]) < 0.7:
+        if input.numel() > 0:
+            return torch.nn.functional.interpolate(
+                input, size, scale_factor, mode, align_corners
+            )
+
+        output_shape = _output_size(2, input, size, scale_factor)
+        output_shape = list(input.shape[:-2]) + list(output_shape)
+        return _new_empty_tensor(input, output_shape)
+    else:
+        return torchvision.ops.misc.interpolate(input, size, scale_factor, mode, align_corners)
 
 
 class FocalLoss(nn.Module):
