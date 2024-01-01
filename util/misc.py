@@ -64,15 +64,15 @@ class SmoothedValue(object):
         d = torch.tensor(list(self.deque), dtype=torch.float32)
         return d.mean().item()
 
-    #@property
-    #def global_avg(self):
-    #    return self.total / self.count
-
     @property
     def global_avg(self):
-        if self.count == 0:
-            return 0.0  # Hoặc giá trị mặc định phù hợp
         return self.total / self.count
+
+    #@property
+    #def global_avg(self):
+    #    if self.count == 0:
+    #        return 0.0  # Hoặc giá trị mặc định phù hợp
+    #    return self.total / self.count
     
     @property
     def max(self):
