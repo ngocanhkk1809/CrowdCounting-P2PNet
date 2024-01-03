@@ -164,8 +164,8 @@ def main(args, debug=False):
     """
     # os.environ["CUDA_VISIBLE_DEVICES"] = '{}'.format(args.gpu_id)
     device = torch.device('cuda')
-    data_root = './DATA_ROOT'
-    output_dir = './EVAL_OUTPUT'
+    data_root = '/kaggle/working/PRJ1/ShanghaiTech/part_A'
+    output_dir = './logs'
 
     # get the P2PNet
     model = build_model(args)
