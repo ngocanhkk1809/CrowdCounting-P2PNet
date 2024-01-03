@@ -186,7 +186,7 @@ def main(args):
             mse.append(result[1])
             # print the evaluation results
             logger.info('=======================================test=======================================')
-            logger.info(f'mae: {result[0]} mse: {result[1]} time: {t2 - t1} best mae: {np.min(mae)}')
+            logger.info(f'mae: {result[0]} mse: {result[1]} time: {t2 - t1} best mae: {np.min(mae)}  best mse:{np.min(mse)} ' )
             logger.info('=======================================test=======================================')
             # recored the evaluation results
             if writer is not None:
