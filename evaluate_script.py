@@ -45,7 +45,7 @@ def get_args_parser():
     parser.add_argument('--line', default=2, type=int,
                         help="line number of anchor points")
 
-    parser.add_argument('--weight_path', default='./ckpt/latest.pth',  # './weights/SHTechA.pth',  #
+    parser.add_argument('--weight_path', default='',  # './weights/SHTechA.pth',  #
                         help='path where the trained weights saved')
 
     return parser
