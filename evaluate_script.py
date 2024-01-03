@@ -36,9 +36,6 @@ class DeNormalize(object):
 def get_args_parser():
     parser = argparse.ArgumentParser('Set parameters for P2PNet evaluation', add_help=False)
 
-     parser.add_argument('--data_root', default='',
-                        help='path where the dataset is')
-
     # * Backbone
     parser.add_argument('--backbone', default='vgg16_bn', type=str,
                         help="name of the convolutional backbone to use")
@@ -48,7 +45,7 @@ def get_args_parser():
     parser.add_argument('--line', default=2, type=int,
                         help="line number of anchor points")
 
-    parser.add_argument('--weight_path', default='',  # './weights/SHTechA.pth',  #
+    parser.add_argument('--weight_path', default='./ckpt/latest.pth',  # './weights/SHTechA.pth',  #
                         help='path where the trained weights saved')
 
     return parser
@@ -167,6 +164,7 @@ def main(args, debug=False):
     """
     # os.environ["CUDA_VISIBLE_DEVICES"] = '{}'.format(args.gpu_id)
     device = torch.device('cuda')
+    data_root = '/kaggle/working/PRJ1/ShanghaiTech/part_A'
     output_dir = './logs'
 
     # get the P2PNet
